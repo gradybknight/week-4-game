@@ -24,7 +24,7 @@ function ResetGame(){
             AttackPower=AttackPower+CounterAttackPower;
         },
         imageName:"one.png",
-        index:0;
+        index:0
     };
     
     var charTwo = {
@@ -126,6 +126,4 @@ function PlayTheGame() {
         // on click
         AssignCharactersToGroups(0); // !! need to get index value of character
     }
-
-    }
-}
+};
