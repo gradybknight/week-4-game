@@ -9,6 +9,7 @@ var charFour;
 var usersChoice;
 var allCharacters;
 var enemiesArray;
+var enemyToFight;
 
 
 
@@ -73,27 +74,28 @@ function ResetGame(){
 
     $('#cow').click(MoveCow);
     function MoveCow(){
-        console.log($('#cow').attr("currentLocation"));
         var chosenCharacterIndex = $('#cow').attr("index");
         AssignCharactersToGroups(chosenCharacterIndex);
+        hasUserChosenCharacter=true;
+        console.log("cow");
     }
     $('#chicken').click(MoveChicken);
     function MoveChicken(){
-        console.log($('#chicken').attr("currentLocation"));
         var chosenCharacterIndex = $('#chicken').attr("index");
         AssignCharactersToGroups(chosenCharacterIndex);
+        hasUserChosenCharacter=true;
     }
     $('#donkey').click(MoveDonkey);
     function MoveDonkey(){
-        console.log($('#donkey').attr("currentLocation"));
         var chosenCharacterIndex = $('#donkey').attr("index");
         AssignCharactersToGroups(chosenCharacterIndex);
+        hasUserChosenCharacter=true;
     }
     $('#pig').click(MovePig);
     function MovePig(){
-        console.log($('#pig').attr("currentLocation"));
         var chosenCharacterIndex = $('#pig').attr("index");
         AssignCharactersToGroups(chosenCharacterIndex);
+        hasUserChosenCharacter=true;
     }
 }
 
@@ -125,6 +127,12 @@ function AssignCharactersToGroups(indexValue){
     characterTile.html('<img src = ./assets/images/' + usersChoice.imageName + ' width = 150px">');
     $("#usersCharacterDiv").append(characterTile);
     // move other characters to enemies div
+    DrawEnemiesDiv();
+    // clear not chosen div
+    $('#notChosenCharacterDiv').empty();
+}
+
+function DrawEnemiesDiv(){
     for (var i = 0; i<enemiesArray.length;i++){
         var characterTile = $("<div>");
         characterTile.attr("id", enemiesArray[i].name);
@@ -133,8 +141,20 @@ function AssignCharactersToGroups(indexValue){
         characterTile.html('<img src = ./assets/images/' + enemiesArray[i].imageName + ' width = 150px">');
         $("#enemyCharacterDiv").append(characterTile);
     }
-    // clear not chosen div
-    $('#notChosenCharacterDiv').empty();
+}
+
+function EnemyIsChosenToFight(index){
+    enemyToFight = enemiesArray[index];
+    var tempArray=[];
+    for (var i=0; i<enemiesArray.length;i++){
+        if (enemiesArray[i]!== enemyToFight){
+            tempArray.push(enemiesArray[i]);
+        }
+    }
+    enemiesArray=[];
+    for (var i=0;i<tempArray.length;i++){
+        enemiesArray.push(tempArray[i]);
+    }
 }
 
 
@@ -184,6 +204,9 @@ function PlayTheGame() {
 };
 
 
-
+function MooSaysTheCow(){
+    console.log("moo");
+}
 
 ResetGame();
+$('#cow').click(MooSaysTheCow);
