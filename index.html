@@ -1,5 +1,3 @@
-<!-- Lottery Generator HTML -->
-
 <!DOCTYPE html>
 
 <html lang="en-us">
@@ -22,20 +20,20 @@
             <div class = "col-md-6">
                 <h1>Barn Yard Animals RPG</h1>
             </div>
-            <div class = "col-md-12">
-                <div id="notChosenCharacterDiv">notChosenCharacterDiv</div>
-            </div>
+        </div>
+        <div class = "row" id="notChosenCharacterDiv">
+        </div>
             <div class = "col-md-12">
                 <h3 id="chosenCharacterText">Your Character</h3>
             </div>
             <div class = "col-md-12">
-                <div id="usersCharacterDiv">usersCharacterDiv</div>
+                <div id="usersCharacterDiv"></div>
             </div>
             <div class = "col-md-12">
                 <h3 id="availableEnemiesText">Enemies available to attack</h3>
             </div>
             <div class = "col-md-12">
-                <div id="enemyCharacterDiv">enemyCharacterDiv</div>
+                <div id="enemyCharacterDiv"></div>
             </div>
             <div class = "col-md-12">
                 <button id="attackEnemy">Attack</button>
@@ -56,7 +54,11 @@
     <h1 class="text-center" id="random-number"></h1>
 
     
+    <!-- jQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
+    <!-- Script -->
+    <script type="text/javascript" src="./assets/javascript/game.js"></script>
   </body>
 
 </html>
