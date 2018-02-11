@@ -23,7 +23,7 @@ function ResetGame(){
         IncreaseAttackPower: function(){
             AttackPower=AttackPower+CounterAttackPower;
         },
-        imageName:"one.png",
+        imageName:"cow.jpg",
         index:0
     };
     
@@ -35,7 +35,7 @@ function ResetGame(){
         IncreaseAttackPower: function(){
             AttackPower=AttackPower+CounterAttackPower;
         },
-        imageName: "two.png",
+        imageName: "donkey.jpg",
         index:1
     };
     
@@ -47,7 +47,7 @@ function ResetGame(){
         IncreaseAttackPower: function(){
             AttackPower=AttackPower+CounterAttackPower;
         },
-        imageName:"three.png",
+        imageName:"chicken.jpg",
         index:2
     };
     
@@ -59,7 +59,7 @@ function ResetGame(){
         IncreaseAttackPower: function(){
             AttackPower=AttackPower+CounterAttackPower;
         },
-        imageName:"four.png",
+        imageName:"pig.jpg",
         index:3
     };
     var allCharacters=[charOne, charTwo, charThree, charFour];
