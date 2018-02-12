@@ -76,12 +76,28 @@ function ResetGame(){
 }
 
 window.onload = function() {
-    $("#cow").on("click", MoveAllTilesToTheirDivs("cow"));
-    $("#donkey").on("click", MoveAllTilesToTheirDivs("donkey"));
-    $("#chicken").on("click", MoveAllTilesToTheirDivs("chicken"));
-    $("#pig").on("click", MoveAllTilesToTheirDivs("pig"));
+    ResetGame();
+    MoveAllTilesToTheirDivs("initialize");
+    $("#cow").on("click", function(){MoveAllTilesToTheirDivs("cow")});
+    $("#donkey").on("click", function(){MoveAllTilesToTheirDivs("donkey")});
+    $("#chicken").on("click", function(){MoveAllTilesToTheirDivs("chicken")});
+    $("#pig").on("click", function(){MoveAllTilesToTheirDivs("pig")});
     $("#attackEnemy").on("click",AttackEnemy);
 };
+
+function RemoveCharacterFromArray(theCharacter,theArray){
+    var tempArray=[];
+    for (var i=0;i<theArray.length;i++){
+        if (theArray[i]!=theCharacter){
+            tempArray.push(theArray[i]);
+        }
+    }
+    theArray=[]
+    for (var i=0; tempArray.length;i++){
+        theArray.push(tempArray[i]);
+    }
+    return theArray;
+}
 
 function MoveAllTilesToTheirDivs(characterClicked){
     if (gameStatus == "started"){
@@ -94,8 +110,27 @@ function MoveAllTilesToTheirDivs(characterClicked){
                 allCharacters[i].currentLocation="#enemyCharacterDiv";
             }
         }
+        $("#notChosenCharacterDiv").empty();
+        gameStatus="tileChosen";
+    } else if (gameStatus == "tileChosen"){
+        if (characterClicked!=usersChoice){
+            enemyToFight=characterClicked;
+            enemyToFight.currentLocation="#enemyDefender";
+            enemiesArray = RemoveCharacterFromArray(enemyToFight,enemiesArray);
+            gameStatus="enemyChosen"
+        }
+    } else if (gameStatus=="enemyChosen"){
+        
+    }
+
+    if (gameStatus=="initialize"){
+        gameStatus="started";
     }
     
+    $("#notChosenCharacterDiv").empty();
+    $("#usersCharacterDiv").empty();
+    $("#enemyCharacterDiv").empty();
+    $("#enemyDefender").empty();
     for (var i=0; i<allCharacters.length; i++){
         var characterTile = $("<div>");
         characterTile.attr("id", allCharacters[i].name);
@@ -109,5 +144,3 @@ function MoveAllTilesToTheirDivs(characterClicked){
 function AttackEnemy(){
 
 }
-ResetGame();
-MoveAllTilesToTheirDivs("initialize");
