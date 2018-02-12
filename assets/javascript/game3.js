@@ -13,7 +13,7 @@ var allCharacters=[];
 var enemiesArray=[];
 
 function ResetGame(){
-    gameStatus="initialize";
+    setGameStatus("initialize");
 
     cow = {
         name: "cow",
@@ -70,7 +70,7 @@ function ResetGame(){
         currentLocation:"#notChosenCharacterDiv",
         isAvailable:true
     };
-    allCharacters=[cow,donkey,chicken,pig];
+    allCharacters={"cow":cow,"donkey":donkey,"chicken":chicken,"pig:":pig};
     usersChoice="";
     enemiesArray=[];
 }
@@ -97,53 +97,61 @@ function RemoveCharacterFromArray(theCharacter,theArray){
 
 function init()
 {
-    for (var i=0; i<allCharacters.length; i++){
+    var s = allCharacters;
+    for (var key in allCharacters){
         var characterTile = $("<div>")
-            .attr("id", allCharacters[i].name)
-            .attr("index", i)
-            .html('<img src = ./assets/images/' + allCharacters[i].imageName + ' width = 150px">');
+            .attr("id", s[key].name)
+            .html('<img src = ./assets/images/' + s[key].imageName + ' width = 150px">');
         // var divString = allCharacters[i].currentLocation;
         $("#notChosenCharacterDiv").append(characterTile);
-        $("#" + allCharacters[i].name).off('click').on('click',function(){
+        $("#" + s[key].name).off('click').on('click',function(){
                 MoveAllTilesToTheirDivs($(this).attr('id'));
         });
     }
-    gameStatus = "started";
+    setGameStatus("started");
+}
+
+function setGameStatus(status)
+{
+    gameStatus = status ;
+    $("#gameStatus").html(status);
 }
 
 function MoveAllTilesToTheirDivs(characterClicked){
     console.log('char ' + characterClicked + ' clicked.');
     if (gameStatus == "started"){
-        for (var i=0; i<allCharacters.length;i++){
-            if (characterClicked == allCharacters[i].name) {
-                usersChoice=allCharacters[i].name;
-                allCharacters[i].currentLocation="#usersCharacterDiv";
+        for (var key in allCharacters){
+            if (characterClicked == allCharacters[key].name) {
+                usersChoice=allCharacters[characterClicked];
+                allCharacters[key].currentLocation="#usersCharacterDiv";
             } else {
-                enemiesArray.push(allCharacters[i]);
-                allCharacters[i].currentLocation="#enemyCharacterDiv";
+                console.log(allCharacters[key]);
+                enemiesArray.push(allCharacters[key]);
+                allCharacters[key].currentLocation="#enemyCharacterDiv";
             }
         }
-        gameStatus="tileChosen";
+    
+        for (var k in allCharacters){
+            //console.log(allCharacters[i].name);
+            var c = $("#" + allCharacters[k].name); 
+            //console.log(c);
+            $(allCharacters[k].currentLocation).append(c);
+        }        
+        setGameStatus("tileChosen");
     } else if (gameStatus == "tileChosen"){
         if (characterClicked!=usersChoice){
-            enemyToFight=characterClicked;
-            enemyToFight.currentLocation="#enemyDefender";
+            enemyToFight=allCharacters[characterClicked];
+            $("#enemyDefender").append($("#" + characterClicked));
             //enemiesArray = RemoveCharacterFromArray(enemyToFight,enemiesArray);
-            gameStatus="enemyChosen"
+            setGameStatus("enemyChosen");
+            $("#" + characterClicked).off('click').on('click',function(){
+                AttackEnemy();
+            });
         }
-    } else if (gameStatus=="enemyChosen"){
-        
-    }
-    
-    for (var i=0; i<allCharacters.length; i++){
-        //console.log(allCharacters[i].name);
-        var c = $("#" + allCharacters[i].name); 
-        //console.log(c);
-        $(allCharacters[i].currentLocation).append(c);
-    }
-    $("#notChosenCharacterDiv").empty();
+    } 
 }
 
 function AttackEnemy(){
-
+    alert('lets fight !');
 }
+
