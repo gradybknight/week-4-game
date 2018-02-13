@@ -118,12 +118,12 @@ function PlayRoundWhereEnemyIsClicked(){
         isUserWinner=false;
         $("#summaryOfAttackText").text("You're dead");
     }
+    $("#summaryOfAttackText").text("You have health power: "+ usersChoice.HealthPower + ". " + enemyToFight.name + " has health power: "+ enemyToFight.HealthPower);
     if (enemyToFight.HealthPower<0){
         gameStatus="enemyDied";
         $("#summaryOfAttackText").text("Enemy died");
-        RemoveCharacterFromArray(enemiesArray,enemyToFight);
     }
-    $("#summaryOfAttackText").text("You have health power: "+ usersChoice.HealthPower + "<br>" + enemyToFight.name + " has health power: "+ enemyToFight.HealthPower);
+    
 
     if (usersChoice.HealthPower>=0 && enemiesArray.length==0){
         isGameOver=true;
